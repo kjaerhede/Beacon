@@ -12,6 +12,7 @@ int NUM_SOL = NUM_RUN;
 int offset = NUM_RUN*4;
 int NUM_RINGS = 4;
 
+
 CRGB leds[NUM_LEDS];
 
 
@@ -42,12 +43,18 @@ void RunningLights(){
     
     delay(speed);
     
+     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
+      int led_num = dot1 + NUM_RUN * iteration;
+      leds[NUM_RUN + led_num ] = CRGB::Gray;
+    }
+    
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      leds[NUM_SOL + led_num ] = CRGB::Black;
+      if(dot1 > 0) leds[NUM_RUN + led_num - 1] = CRGB::Black;
+      else if(dot1 + iteration == 0) leds[NUM_RUN + NUM_RUN * NUM_RINGS - 1] = CRGB::Black;
+      else leds[NUM_RUN + led_num - 1] = CRGB::Black;
     }
-  
-}
+  }
 }
 
 
