@@ -45,14 +45,14 @@ void RunningLights(){
     
      for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      leds[NUM_SOL + led_num ] = CRGB::Gray;
+      leds[NUM_RUN + led_num ] = CRGB::Gray;
     }
     
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      if(dot1 > 0) leds[NUM_SOL + led_num - 1] = CRGB::Black;
-      else if(dot1 = 0) leds[NUM_RUN * NUM_RINGS - 1] = CRGB::Black;
-      else leds[NUM_SOL + led_num - 1] = CRGB::Black;
+      if(dot1 > 0) leds[NUM_RUN + led_num - 1] = CRGB::Black;
+      else if(dot1 == 0) leds[NUM_RUN + NUM_RUN * NUM_RINGS - 1] = CRGB::Black;
+      else leds[NUM_RUN + led_num - 1] = CRGB::Black;
     }
   }
 }
