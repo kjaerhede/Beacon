@@ -32,7 +32,7 @@ RunningLights();
 
 void RunningLights(){
 
-  for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
+for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
   leds[dot1]                          = CRGB::White;
   leds[dot1 + NUM_RUN]                = CRGB::White;
   leds[dot1 + offset]                 = CRGB::White;
@@ -51,6 +51,7 @@ void RunningLights(){
 	
 	
   if(dot1>0) leds[dot1 - 1]           = CRGB::Black;
+  else leds[dot1-1]                   = CRGB::Black;
   leds[dot1 + NUM_RUN - 1]            = CRGB::Black;
   leds[dot1 + offset - 1]             = CRGB::Black;
   leds[dot1 + NUM_RUN + offset - 1]   = CRGB::Black;
