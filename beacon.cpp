@@ -48,27 +48,30 @@ void RunningLights(){
   leds[dot1 + NUM_RUN + offset]           = CRGB::GhostWhite;
   leds[dot1 + offset * 2]                 = CRGB::GhostWhite;
   leds[dot1 + NUM_RUN + offset * 2]       = CRGB::GhostWhite;
-	  
+	
+	
   if(dot1>0) leds[dot1 - 1]               = CRGB::Gray;
-  else leds[NUM_RUN * 2 - 1]              = CRGB::Gray;
+  else leds[dot1+ NUM_RUN * 2 - 1]        = CRGB::Gray;
   leds[dot1 + NUM_RUN - 1]                = CRGB::Gray;
   if(dot1>0) leds[dot1 + offset - 1]      = CRGB::Gray;
   else leds[NUM_RUN * 2 + offset - 1]     = CRGB::Gray;
   leds[dot1 + NUM_RUN + offset - 1]       = CRGB::Gray;
   if(dot1>0) leds[dot1 + offset * 2 - 1]  = CRGB::Gray;
   else leds[NUM_RUN * 2 + offset * 2 - 1] = CRGB::Gray;
-  leds[dot1 + NUM_RUN + offset*2 - 1]     = CRGB::Gray;		
-	  
+  leds[dot1 + NUM_RUN + offset * 2 - 1]   = CRGB::Gray;		
+
+
   if(dot1>1) leds[dot1 - 2]               = CRGB::Black;
-  else leds[NUM_RUN * 2 - 2]              = CRGB::Black;
+  else leds[dot1 + NUM_RUN * 2 - 2]       = CRGB::Black;
   leds[dot1 + NUM_RUN - 2]                = CRGB::Black;
   if(dot1>0) leds[dot1 + offset - 2]      = CRGB::Black;
   else leds[NUM_RUN * 2 + offset - 2]     = CRGB::Black;
   leds[dot1 + NUM_RUN + offset - 2]       = CRGB::Black;
   if(dot1>0) leds[dot1 + offset * 2 - 2]  = CRGB::Black;
   else leds[NUM_RUN * 2 + offset * 2 - 2] = CRGB::Black;
-  leds[dot1 + NUM_RUN + offset*2 - 2]     = CRGB::Black;		
+  leds[dot1 + NUM_RUN + offset * 2 - 2]   = CRGB::Black;		
 
+  
   delay(speed);}
 
 }
