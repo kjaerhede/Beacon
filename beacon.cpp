@@ -42,21 +42,20 @@ void RunningLights(){
 	
   FastLED.show();
 	
-  if(dot1> 0) leds[dot1 - 1]          = CRGB::Gray;
-  leds[dot1 + NUM_RUN - 1]            = CRGB::Gray;
-  leds[dot1 + offset - 1]             = CRGB::Gray;
-  leds[dot1 + NUM_RUN + offset - 1]   = CRGB::Gray;
-  leds[dot1 + offset*2 - 1]           = CRGB::Gray;
-  leds[dot1 + NUM_RUN + offset*2 - 1] = CRGB::Gray;
+  leds[dot1]                          = CRGB::Gray;
+  leds[dot1 + NUM_RUN]                = CRGB::Gray;
+  leds[dot1 + offset]                 = CRGB::Gray;
+  leds[dot1 + NUM_RUN + offset]       = CRGB::Gray;
+  leds[dot1 + offset*2]               = CRGB::Gray;
+  leds[dot1 + NUM_RUN + offset*2]     = CRGB::Gray;
 	
-  FastLED.show();
 	
-  leds[dot1]                          = CRGB::Black;
-  leds[dot1 + NUM_RUN]                = CRGB::Black;
-  leds[dot1 + offset]                 = CRGB::Black;
-  leds[dot1 + NUM_RUN + offset]       = CRGB::Black;
-  leds[dot1 + offset*2]               = CRGB::Black;
-  leds[dot1 + NUM_RUN + offset*2]     = CRGB::Black;		
+  if(dot1>0) leds[dot1 - 1]             = CRGB::Black;
+  leds[dot1 + NUM_RUN - 1]              = CRGB::Black;
+  leds[dot1 + offset - 1]               = CRGB::Black;
+  leds[dot1 + NUM_RUN + offset - 1]     = CRGB::Black;
+  leds[dot1 + offset*2 - 1]             = CRGB::Black;
+  leds[dot1 + NUM_RUN + offset*2 - 1]   = CRGB::Black;		
 
   
   delay(speed);}
