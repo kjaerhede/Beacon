@@ -50,12 +50,12 @@ void RunningLights(){
   leds[dot1 + NUM_RUN + offset*2]     = CRGB::Gray;
 	
 	
-  if(dot1>0) leds[dot1 - 1]             = CRGB::Black;
-  leds[dot1 + NUM_RUN - 1]              = CRGB::Black;
-  leds[dot1 + offset - 1]               = CRGB::Black;
-  leds[dot1 + NUM_RUN + offset - 1]     = CRGB::Black;
-  leds[dot1 + offset*2 - 1]             = CRGB::Black;
-  leds[dot1 + NUM_RUN + offset*2 - 1]   = CRGB::Black;		
+  if(dot1>0) leds[dot1 - 1]           = CRGB::Black;
+  leds[dot1 + NUM_RUN - 1]            = CRGB::Black;
+  leds[dot1 + offset - 1]             = CRGB::Black;
+  leds[dot1 + NUM_RUN + offset - 1]   = CRGB::Black;
+  leds[dot1 + offset*2 - 1]           = CRGB::Black;
+  leds[dot1 + NUM_RUN + offset*2 - 1] = CRGB::Black;		
 
   
   delay(speed);}
@@ -69,4 +69,3 @@ void SolidLights(){
   fill_solid( &(leds[NUM_SOL + offset*2]),  NUM_SOL, CRGB(255, 0, 0));
 
 }
-
