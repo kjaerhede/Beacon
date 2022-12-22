@@ -54,6 +54,6 @@ void RunningLights(){
 void SolidLights(){
 
   fill_solid( &(leds[0]),             NUM_SOL, CRGB(64, 0, 0));
-  fill_solid( &(leds[0+NUM_SOL*NUM_RINGS]),    NUM_SOL, CRGB(64, 0, 0));
+  fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_RINGS]),    NUM_SOL, CRGB(64, 0, 0));
   
 }
