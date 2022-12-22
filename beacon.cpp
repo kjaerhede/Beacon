@@ -51,7 +51,7 @@ void RunningLights(){
 	
 	
   if(dot1>0) leds[dot1 - 1]               = CRGB::Black;
-  else leds[NUM_RUN * 2]                  = CRGB::Black;
+  else leds[NUM_RUN * 2 - 1]              = CRGB::Black;
   leds[dot1 + NUM_RUN - 1]                = CRGB::Black;
   if(dot1>0) leds[dot1 + offset - 1]      = CRGB::Black;
   else leds[NUM_RUN * 2 + offset -1]      = CRGB::Black;
