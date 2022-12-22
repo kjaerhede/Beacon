@@ -33,30 +33,30 @@ RunningLights();
 void RunningLights(){
 
   for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
-  leds[dot1]            			        = CRGB::White;
-  leds[dot1 + NUM_RUN]  			        = CRGB::White;
-  leds[dot1 + offset]   			        = CRGB::White;
+  leds[dot1]                          = CRGB::White;
+  leds[dot1 + NUM_RUN]                = CRGB::White;
+  leds[dot1 + offset]                 = CRGB::White;
   leds[dot1 + NUM_RUN + offset]       = CRGB::White;
-  leds[dot1 + offset*2] 			        = CRGB::White;
-  leds[dot1 + NUM_RUN + offset*2] 	  = CRGB::White;
+  leds[dot1 + offset*2]               = CRGB::White;
+  leds[dot1 + NUM_RUN + offset*2]     = CRGB::White;
 	
   FastLED.show();
 	
   if(dot1> 0) leds[dot1 - 1]          = CRGB::Gray;
-  leds[dot1 + NUM_RUN - 1]  	        = CRGB::Gray;
-  leds[dot1 + offset - 1]   	        = CRGB::Gray;
+  leds[dot1 + NUM_RUN - 1]            = CRGB::Gray;
+  leds[dot1 + offset - 1]             = CRGB::Gray;
   leds[dot1 + NUM_RUN + offset - 1]   = CRGB::Gray;
   leds[dot1 + offset*2 - 1]           = CRGB::Gray;
   leds[dot1 + NUM_RUN + offset*2 - 1] = CRGB::Gray;
 	
   FastLED.show();
 	
-  leds[dot1]            	            = CRGB::Black;
-  leds[dot1 + NUM_RUN]  			        = CRGB::Black;
-  leds[dot1 + offset]   			        = CRGB::Black;
+  leds[dot1]                          = CRGB::Black;
+  leds[dot1 + NUM_RUN]                = CRGB::Black;
+  leds[dot1 + offset]                 = CRGB::Black;
   leds[dot1 + NUM_RUN + offset]       = CRGB::Black;
-  leds[dot1 + offset*2] 			        = CRGB::Black;
-  leds[dot1 + NUM_RUN + offset*2] 	  = CRGB::Black;		
+  leds[dot1 + offset*2]               = CRGB::Black;
+  leds[dot1 + NUM_RUN + offset*2]     = CRGB::Black;		
 
   
   delay(speed);}
@@ -65,9 +65,9 @@ void RunningLights(){
 
 void SolidLights(){
 
-  fill_solid( &(leds[NUM_SOL]),            NUM_SOL, CRGB(255, 0, 0));
-  fill_solid( &(leds[NUM_SOL + offset]),   NUM_SOL, CRGB(255, 0, 0));
-  fill_solid( &(leds[NUM_SOL + offset*2]), NUM_SOL, CRGB(255, 0, 0));
+  fill_solid( &(leds[NUM_SOL]),             NUM_SOL, CRGB(255, 0, 0));
+  fill_solid( &(leds[NUM_SOL + offset]),    NUM_SOL, CRGB(255, 0, 0));
+  fill_solid( &(leds[NUM_SOL + offset*2]),  NUM_SOL, CRGB(255, 0, 0));
 
 }
 
