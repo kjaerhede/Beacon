@@ -7,9 +7,10 @@
 #define BRIGHTNESS 25
 
 int speed = 200;
-int NUM_RUN = 6;
+int NUM_RUN = 12;
 int NUM_SOL = NUM_RUN*2;
 int offset = NUM_RUN*4;
+int NUM_RINGS = 6;
 
 CRGB leds[NUM_LEDS];
 
@@ -25,56 +26,29 @@ void setup() {
 void loop() {
 
 
-SolidLights();
+//SolidLights();
 RunningLights();
 
 }
-
 void RunningLights(){
 
   for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
-  leds[dot1]                                      = CRGB(255, 255, 255);
-  leds[dot1 + NUM_RUN]                            = CRGB(255, 255, 255);
-  leds[dot1 + offset]                             = CRGB(255, 255, 255);
-  leds[dot1 + NUM_RUN + offset]                   = CRGB(255, 255, 255);
-  leds[dot1 + offset*2]                           = CRGB(255, 255, 255);
-  leds[dot1 + NUM_RUN + offset*2]                 = CRGB(255, 255, 255);
-	
-  FastLED.show();
-	
-  leds[dot1]                                      = CRGB(35, 35, 35);
-  leds[dot1 + NUM_RUN]                            = CRGB(35, 35, 35);
-  leds[dot1 + offset]                             = CRGB(35, 35, 35);
-  leds[dot1 + NUM_RUN + offset]                   = CRGB(35, 35, 35);
-  leds[dot1 + offset * 2]                         = CRGB(35, 35, 35);
-  leds[dot1 + NUM_RUN + offset * 2]               = CRGB(35, 35, 35);
-	
-	
-  if(dot1>0) leds[dot1 - 1]                       = CRGB(10, 10, 10);
-  else leds[dot1+ NUM_RUN * 2 - 1]                = CRGB(10, 10, 10);
-  leds[dot1 + NUM_RUN - 1]                        = CRGB(10, 10, 10);
-  if(dot1>0) leds[dot1 + offset - 1]              = CRGB(10, 10, 10);
-  else leds[dot1 + NUM_RUN * 2 + offset - 1]      = CRGB(10, 10, 10);
-  leds[dot1 + NUM_RUN + offset - 1]               = CRGB(10, 10, 10);
-  if(dot1>0) leds[dot1 + offset * 2 - 1]          = CRGB(10, 10, 10);
-  else leds[dot1 + NUM_RUN * 2 + offset * 2 - 1]  = CRGB(10, 10, 10);
-  leds[dot1 + NUM_RUN + offset * 2 - 1]           = CRGB(10, 10, 10);
-
-
-  if(dot1>1) leds[dot1 - 2]                       = CRGB::Black;
-  else leds[dot1 + NUM_RUN * 2 - 2]               = CRGB::Black;
-  leds[dot1 + NUM_RUN - 2]                        = CRGB::Black;
-  if(dot1>1) leds[dot1 + offset - 2]              = CRGB::Black;
-  else leds[dot1 + NUM_RUN * 2 + offset - 2]      = CRGB::Black;
-  leds[dot1 + NUM_RUN + offset - 2]               = CRGB::Black;
-  if(dot1>1) leds[dot1 + offset * 2 - 2]          = CRGB::Black;
-  else leds[dot1 + NUM_RUN * 2 + offset * 2 - 2]  = CRGB::Black;
-  leds[dot1 + NUM_RUN + offset * 2 - 2]           = CRGB::Black;		
-
-  
-  delay(speed);}
-
+    for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
+      int led_num = dot1 + NUM_RUN * iteration;
+      leds[led_num] = CRGB::White;
+    }
+    
+    FastLED.show();
+    
+    delay(speed);
+    
+    for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
+      int led_num = dot1 + NUM_RUN * iteration;
+      leds[led_num] = CRGB::Black;
+    }
+  }
 }
+
 
 void SolidLights(){
 
