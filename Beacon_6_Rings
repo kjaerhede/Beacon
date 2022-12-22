@@ -8,9 +8,9 @@
 
 int speed = 200;
 int NUM_RUN = 12;
-int NUM_SOL = NUM_RUN*2;
+int NUM_SOL = NUM_RUN;
 int offset = NUM_RUN*4;
-int NUM_RINGS = 6;
+int NUM_RINGS = 4;
 
 CRGB leds[NUM_LEDS];
 
@@ -26,7 +26,7 @@ void setup() {
 void loop() {
 
 
-//SolidLights();
+SolidLights();
 RunningLights();
 
 }
@@ -35,7 +35,7 @@ void RunningLights(){
   for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      leds[led_num] = CRGB::White;
+      leds[NUM_SOL + led_num] = CRGB::White;
     }
     
     FastLED.show();
@@ -44,16 +44,16 @@ void RunningLights(){
     
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      leds[led_num] = CRGB::Black;
+      leds[NUM_SOL + led_num ] = CRGB::Black;
     }
-  }
+  
+}
 }
 
 
 void SolidLights(){
 
-  fill_solid( &(leds[NUM_SOL]),             NUM_SOL, CRGB(64, 0, 0));
-  fill_solid( &(leds[NUM_SOL + offset]),    NUM_SOL, CRGB(64, 0, 0));
-  fill_solid( &(leds[NUM_SOL + offset*2]),  NUM_SOL, CRGB(64, 0, 0));
-
+  fill_solid( &(leds[0]),             NUM_SOL, CRGB(64, 0, 0));
+  fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_SOL]),    NUM_SOL, CRGB(64, 0, 0));
+  
 }
