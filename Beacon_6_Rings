@@ -10,7 +10,7 @@ int speed = 200;
 int NUM_RUN = 12;
 int NUM_SOL = NUM_RUN;
 int offset = NUM_RUN*4;
-int NUM_RINGS = 4;#include <FastLED.h>
+int NUM_RINGS = 4;
 
 
 CRGB leds[NUM_LEDS];
@@ -50,10 +50,10 @@ void RunningLights(){
     
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      if(dot1 > 0) leds[NUM_SOL + led_num ] = CRGB::Black;
-      else leds[NUM_SOL + led_num - 1] = GRGB::Black;
+      if(dot1 > 0) leds[NUM_SOL + led_num - 1] = CRGB::Black;
+      else if(dot1 = 0) leds[NUM_RUN * NUM_RINGS - 1] = CRGB::Black;
+      else leds[NUM_SOL + led_num - 1] = CRGB::Black;
     }
-  
   }
 }
 
