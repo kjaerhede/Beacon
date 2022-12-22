@@ -37,13 +37,14 @@ void RunningLights(){
       leds[led_num] = CRGB::White;
     }
     
+    FastLED.show();
+    
     delay(speed);
     
     for (int iteration = 0; iteration < 3; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
       leds[led_num] = CRGB::Black;
-      
-    FastLED.show();
+    }
   }
 }
 
