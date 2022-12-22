@@ -33,32 +33,32 @@ RunningLights();
 void RunningLights(){
 
   for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
-  leds[dot1]                                      = CRGB::White;
-  leds[dot1 + NUM_RUN]                            = CRGB::White;
-  leds[dot1 + offset]                             = CRGB::White;
-  leds[dot1 + NUM_RUN + offset]                   = CRGB::White;
-  leds[dot1 + offset*2]                           = CRGB::White;
-  leds[dot1 + NUM_RUN + offset*2]                 = CRGB::White;
+  leds[dot1]                                      = CRGB(255, 255, 255);
+  leds[dot1 + NUM_RUN]                            = CRGB(255, 255, 255);
+  leds[dot1 + offset]                             = CRGB(255, 255, 255);
+  leds[dot1 + NUM_RUN + offset]                   = CRGB(255, 255, 255);
+  leds[dot1 + offset*2]                           = CRGB(255, 255, 255);
+  leds[dot1 + NUM_RUN + offset*2]                 = CRGB(255, 255, 255);
 	
   FastLED.show();
 	
-  leds[dot1]                                      = CRGB::GhostWhite;
-  leds[dot1 + NUM_RUN]                            = CRGB::GhostWhite;
-  leds[dot1 + offset]                             = CRGB::GhostWhite;
-  leds[dot1 + NUM_RUN + offset]                   = CRGB::GhostWhite;
-  leds[dot1 + offset * 2]                         = CRGB::GhostWhite;
-  leds[dot1 + NUM_RUN + offset * 2]               = CRGB::GhostWhite;
+  leds[dot1]                                      = CRGB(35, 35, 35);
+  leds[dot1 + NUM_RUN]                            = CRGB(35, 35, 35);
+  leds[dot1 + offset]                             = CRGB(35, 35, 35);
+  leds[dot1 + NUM_RUN + offset]                   = CRGB(35, 35, 35);
+  leds[dot1 + offset * 2]                         = CRGB(35, 35, 35);
+  leds[dot1 + NUM_RUN + offset * 2]               = CRGB(35, 35, 35);
 	
 	
-  if(dot1>0) leds[dot1 - 1]                       = CRGB::Gray;
-  else leds[dot1+ NUM_RUN * 2 - 1]                = CRGB::Gray;
-  leds[dot1 + NUM_RUN - 1]                        = CRGB::Gray;
-  if(dot1>0) leds[dot1 + offset - 1]              = CRGB::Gray;
-  else leds[dot1 + NUM_RUN * 2 + offset - 1]      = CRGB::Gray;
-  leds[dot1 + NUM_RUN + offset - 1]               = CRGB::Gray;
-  if(dot1>0) leds[dot1 + offset * 2 - 1]          = CRGB::Gray;
-  else leds[dot1 + NUM_RUN * 2 + offset * 2 - 1]  = CRGB::Gray;
-  leds[dot1 + NUM_RUN + offset * 2 - 1]           = CRGB::Gray;		
+  if(dot1>0) leds[dot1 - 1]                       = CRGB(10, 10, 10);
+  else leds[dot1+ NUM_RUN * 2 - 1]                = CRGB(10, 10, 10);
+  leds[dot1 + NUM_RUN - 1]                        = CRGB(10, 10, 10);
+  if(dot1>0) leds[dot1 + offset - 1]              = CRGB(10, 10, 10);
+  else leds[dot1 + NUM_RUN * 2 + offset - 1]      = CRGB(10, 10, 10);
+  leds[dot1 + NUM_RUN + offset - 1]               = CRGB(10, 10, 10);
+  if(dot1>0) leds[dot1 + offset * 2 - 1]          = CRGB(10, 10, 10);
+  else leds[dot1 + NUM_RUN * 2 + offset * 2 - 1]  = CRGB(10, 10, 10);
+  leds[dot1 + NUM_RUN + offset * 2 - 1]           = CRGB(10, 10, 10);
 
 
   if(dot1>1) leds[dot1 - 2]                       = CRGB::Black;
@@ -78,8 +78,8 @@ void RunningLights(){
 
 void SolidLights(){
 
-  fill_solid( &(leds[NUM_SOL]),             NUM_SOL, CRGB(255, 0, 0));
-  fill_solid( &(leds[NUM_SOL + offset]),    NUM_SOL, CRGB(255, 0, 0));
-  fill_solid( &(leds[NUM_SOL + offset*2]),  NUM_SOL, CRGB(255, 0, 0));
+  fill_solid( &(leds[NUM_SOL]),             NUM_SOL, CRGB(64, 0, 0));
+  fill_solid( &(leds[NUM_SOL + offset]),    NUM_SOL, CRGB(64, 0, 0));
+  fill_solid( &(leds[NUM_SOL + offset*2]),  NUM_SOL, CRGB(64, 0, 0));
 
 }
