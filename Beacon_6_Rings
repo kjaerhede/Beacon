@@ -42,9 +42,15 @@ void RunningLights(){
     
     delay(speed);
     
+        for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
+      int led_num = dot1 + NUM_RUN * iteration;
+      leds[NUM_SOL + led_num ] = CRGB::Gray;
+    }
+    
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      leds[NUM_SOL + led_num ] = CRGB::Black;
+      if(dot1 > 0) leds[NUM_SOL + led_num ] = CRGB::Black;
+      else dot1[led_num - 1] = GRGB::Black;
     }
   
 }
