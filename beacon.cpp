@@ -64,10 +64,10 @@ void RunningLights(){
   if(dot1>1) leds[dot1 - 2]                       = CRGB::Black;
   else leds[dot1 + NUM_RUN * 2 - 2]               = CRGB::Black;
   leds[dot1 + NUM_RUN - 2]                        = CRGB::Black;
-  if(dot1>0) leds[dot1 + offset - 2]              = CRGB::Black;
+  if(dot1>1) leds[dot1 + offset - 2]              = CRGB::Black;
   else leds[dot1 + NUM_RUN * 2 + offset - 2]      = CRGB::Black;
   leds[dot1 + NUM_RUN + offset - 2]               = CRGB::Black;
-  if(dot1>0) leds[dot1 + offset * 2 - 2]          = CRGB::Black;
+  if(dot1>1) leds[dot1 + offset * 2 - 2]          = CRGB::Black;
   else leds[dot1 + NUM_RUN * 2 + offset * 2 - 2]  = CRGB::Black;
   leds[dot1 + NUM_RUN + offset * 2 - 2]           = CRGB::Black;		
 
