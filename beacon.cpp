@@ -16,10 +16,10 @@ CRGB leds[NUM_LEDS];
 
 void setup() {
   
- Serial.begin(115200);
- FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS);
+  Serial.begin(115200);
+  FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS);
 
- delay(1000);
+  delay(1000);
 }
 
 void loop() {
@@ -33,33 +33,33 @@ RunningLights();
 void RunningLights(){
 
   for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
-	leds[dot1]            			        = CRGB::White;
-	leds[dot1 + NUM_RUN]  			        = CRGB::White;
+  leds[dot1]            			        = CRGB::White;
+  leds[dot1 + NUM_RUN]  			        = CRGB::White;
   leds[dot1 + offset]   			        = CRGB::White;
-	leds[dot1 + NUM_RUN + offset]       = CRGB::White;
+  leds[dot1 + NUM_RUN + offset]       = CRGB::White;
   leds[dot1 + offset*2] 			        = CRGB::White;
-	leds[dot1 + NUM_RUN + offset*2] 	  = CRGB::White;
+  leds[dot1 + NUM_RUN + offset*2] 	  = CRGB::White;
 	
-	FastLED.show();
+  FastLED.show();
 	
-	if(dot1> 0) leds[dot1 - 1]          = CRGB::Gray;
-	leds[dot1 + NUM_RUN - 1]  			    = CRGB::Gray;
-  leds[dot1 + offset - 1]   			    = CRGB::Gray;
-	leds[dot1 + NUM_RUN + offset - 1]   = CRGB::Gray;
-  leds[dot1 + offset*2 - 1] 			    = CRGB::Gray;
-	leds[dot1 + NUM_RUN + offset*2 - 1] = CRGB::Gray;
+  if(dot1> 0) leds[dot1 - 1]          = CRGB::Gray;
+  leds[dot1 + NUM_RUN - 1]  	        = CRGB::Gray;
+  leds[dot1 + offset - 1]   	        = CRGB::Gray;
+  leds[dot1 + NUM_RUN + offset - 1]   = CRGB::Gray;
+  leds[dot1 + offset*2 - 1]           = CRGB::Gray;
+  leds[dot1 + NUM_RUN + offset*2 - 1] = CRGB::Gray;
 	
-	FastLED.show();
+  FastLED.show();
 	
-	leds[dot1]            			        = CRGB::Black;
-	leds[dot1 + NUM_RUN]  			        = CRGB::Black;
+  leds[dot1]            	            = CRGB::Black;
+  leds[dot1 + NUM_RUN]  			        = CRGB::Black;
   leds[dot1 + offset]   			        = CRGB::Black;
-	leds[dot1 + NUM_RUN + offset]       = CRGB::Black;
+  leds[dot1 + NUM_RUN + offset]       = CRGB::Black;
   leds[dot1 + offset*2] 			        = CRGB::Black;
-	leds[dot1 + NUM_RUN + offset*2] 	  = CRGB::Black;		
+  leds[dot1 + NUM_RUN + offset*2] 	  = CRGB::Black;		
 
   
-	delay(speed);}
+  delay(speed);}
 
 }
 
