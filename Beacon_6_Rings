@@ -12,17 +12,6 @@ int NUM_SOL = NUM_RUN;
 int offset = NUM_RUN*4;
 int NUM_RINGS = 4;#include <FastLED.h>
 
-#define LED_TYPE WS2812B
-#define COLOR_ORDER GRB
-#define NUM_LEDS 100
-#define DATA_PIN 21
-#define BRIGHTNESS 25
-
-int speed = 200;
-int NUM_RUN = 12;
-int NUM_SOL = NUM_RUN;
-int offset = NUM_RUN*4;
-int NUM_RINGS = 4;
 
 CRGB leds[NUM_LEDS];
 
