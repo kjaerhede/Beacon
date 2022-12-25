@@ -12,7 +12,7 @@ int NUM_RUN = 12;
 int NUM_SOL = NUM_RUN;
 int offset = NUM_RUN*4;
 int NUM_RINGS = 6;
-volatile int S = 0;
+int run_light = 0;
 
 const char* ssid     = "ELF";
 const char* password = "Happyelf";
@@ -39,7 +39,7 @@ void loop() {
 
 void RunningLights(){
 
-  while (S = 1) {
+  while (run_light = 1) {
   for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
@@ -145,10 +145,11 @@ void Wifi(){
         }
 
               // Check to see if the client request was "GET /H" or "GET /L":
-          if (currentLine.endsWith("GET /B")) { int S = 1;
-          Serial.print("the s=1 setting actually works");
+          if (currentLine.endsWith("GET /B")) { 
+            
+            Serial.print("the s=1 setting actually works");
           
-          int run_light = 1
+          int run_light = 1;
           // SolidLights(); 
           // delay(10);
           // RunningLights();     
@@ -167,7 +168,7 @@ void Wifi(){
     // close the connection:
     //client.stop();
     //Serial.println("Client Disconnected.");
-    while(run_light) {
+    while(run_light = 1) {
       RunningLights(); 
     }
   }
