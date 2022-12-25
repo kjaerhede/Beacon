@@ -146,6 +146,7 @@ void Wifi(){
 
               // Check to see if the client request was "GET /H" or "GET /L":
           if (currentLine.endsWith("GET /B")) { int S = 1;
+          Serial.print("the s=1 setting actually works");
           
           int run_light = 1
           // SolidLights(); 
