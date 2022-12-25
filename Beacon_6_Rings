@@ -166,7 +166,7 @@ void Wifi(){
     // close the connection:
     //client.stop();
     //Serial.println("Client Disconnected.");
-    whilte(run_light) {
+    while(run_light) {
       RunningLights(); 
     }
   }
