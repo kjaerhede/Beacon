@@ -146,7 +146,8 @@ void Wifi(){
 
               // Check to see if the client request was "GET /H" or "GET /L":
           if (currentLine.endsWith("GET /B")) { int S = 1;
-
+          
+          int run_light = 1
           // SolidLights(); 
           // delay(10);
           // RunningLights();     
@@ -165,6 +166,7 @@ void Wifi(){
     // close the connection:
     //client.stop();
     //Serial.println("Client Disconnected.");
+    RunningLights(); 
   }
 }
 }
