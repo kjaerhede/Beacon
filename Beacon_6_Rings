@@ -14,6 +14,7 @@ int offset = NUM_RUN*4;
 int NUM_RINGS = 6;
 int run_light = 0;
 
+ 
 const char* ssid     = "ELF";
 const char* password = "Happyelf";
 
@@ -33,18 +34,27 @@ void setup() {
 
 void loop() {
 
+  SolidLights();
+   RunningLights();
    Wifi();
-
+   //Serial.print(run_light);
+   //delay(500);
+  
+  
 }
 
-void RunningLights(){
 
-  while (run_light = 1) {
-  for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
-    for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
+void RunningLights(){
+  
+      if (run_light == 1) {
+
+      for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
+      for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
       leds[NUM_SOL + led_num] = CRGB::White;
     }
+      
+      
     
     FastLED.show();
     
@@ -66,12 +76,19 @@ void RunningLights(){
 }
 
 
+
+
+
+
+
 void SolidLights(){
+
+  if (run_light == 1){
 
   fill_solid( &(leds[0]),             NUM_SOL, CRGB(64, 0, 0));
   fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_SOL]),    NUM_SOL, CRGB(64, 0, 0));
   FastLED.show();
-  
+  }
 }
 
 void Wifisetup(){ 
@@ -101,14 +118,17 @@ void Wifisetup(){
 
 void Clearall(){
 
+    if (run_light == 0) {
   fill_solid( &(leds[0]), NUM_LEDS, CRGB(0, 0, 0));
   FastLED.show();
-
+  
+  }
 }
 
 void Wifi(){
-
- WiFiClient client = server.available();   // listen for incoming clients
+ 
+  
+  WiFiClient client = server.available();   // listen for incoming clients
 
   if (client) {                             // if you get a client,
     Serial.println("New Client.");           // print a message out the serial port
@@ -130,7 +150,7 @@ void Wifi(){
 
             // the content of the HTTP response follows the header:
             client.print("Click <a href=\"/B\">here</a> to Turn Beacon on.<br>");
-            client.print("Click <a href=\"/S\">here</a> to Turn SolidLights on.<br>");
+            //client.print("Click <a href=\"/S\">here</a> to Turn SolidLights on.<br>");
             client.print("Click <a href=\"/O\">here</a> to Turn the Beacon OFF.<br>");
 
             // The HTTP response ends with another blank line:
@@ -145,32 +165,55 @@ void Wifi(){
         }
 
               // Check to see if the client request was "GET /H" or "GET /L":
-          if (currentLine.endsWith("GET /B")) { 
+          if (currentLine.endsWith("GET /B"))  { 
             
-            Serial.print("the s=1 setting actually works");
-          
-          int run_light = 1;
-          // SolidLights(); 
-          // delay(10);
-          // RunningLights();     
+            run_light = 1;
+            Serial.println("");
+            Serial.println("I am a happy elf ");
+            Serial.println("");
+            Serial.println(run_light);            
+            // SolidLights(); 
+            // delay(10);
+            // RunningLights();     
           
         }
         
-         if (currentLine.endsWith("GET /S")) {
+        //if (currentLine.endsWith("GET /S")) {
           // SolidLights(); 
 
-         }  
+         //}  
                      
-         if (currentLine.endsWith("GET /O")) {int volatile S = 0;
-          // Clearall(); 
+        else if (currentLine.endsWith("GET /O")) { 
+          
+            run_light = 0;
+            Serial.println("");
+            Serial.println("I am a happy elf ");
+            Serial.println("");
+            Serial.println(run_light); 
+           
+             Clearall(); 
       }
-    }
+      
+      
+      
+            // if (run_light = 1) {
+      //   RunningLights();
+    
+      //  }
+    //   else if (run_light = 0){         
+    //     Clearall();
+    //    }
+    // }
     // close the connection:
     //client.stop();
     //Serial.println("Client Disconnected.");
-    while(run_light = 1) {
-      RunningLights(); 
-    }
+
   }
 }
 }
+}
+
+
+
+
+
