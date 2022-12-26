@@ -5,23 +5,18 @@
 #define COLOR_ORDER GRB
 #define NUM_LEDS 100
 #define DATA_PIN 21
-#define BRIGHTNESS 25
 
 int speed = 200;
 int NUM_RUN = 12;
 int NUM_SOL = NUM_RUN;
-int offset = NUM_RUN*4;
 int NUM_RINGS = 6;
 int run_light = 0;
-
  
 const char* ssid     = "ELF";
 const char* password = "Happyelf";
 
 WiFiServer server(80);
-
 CRGB leds[NUM_LEDS];
-
 
 void setup() {
   
@@ -30,32 +25,29 @@ void setup() {
   Clearall();
   Wifisetup();
  
-  }
+}
 
 void loop() {
 
-  SolidLights();
-   RunningLights();
-   Wifi();
-   //Serial.print(run_light);
-   //delay(500);
-  
-  
+  Beacon();
+  Clearall();
+  Wifi();
+ 
 }
 
-
-void RunningLights(){
+void Beacon(){
   
-      if (run_light == 1) {
-
+      if (run_light == 1) {             
+      
       for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
-      for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
-      int led_num = dot1 + NUM_RUN * iteration;
-      leds[NUM_SOL + led_num] = CRGB::White;
+       for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
+       int led_num = dot1 + NUM_RUN * iteration;
+       leds[NUM_SOL + led_num] = CRGB::White;
+
+      fill_solid( &(leds[0]),             NUM_SOL, CRGB(64, 0, 0));
+      fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_SOL]),    NUM_SOL, CRGB(64, 0, 0));
     }
       
-      
-    
     FastLED.show();
     
     delay(speed);
@@ -72,22 +64,6 @@ void RunningLights(){
       else leds[NUM_RUN + led_num - 1] = CRGB::Black;
     }
   }
-}
-}
-
-
-
-
-
-
-
-void SolidLights(){
-
-  if (run_light == 1){
-
-  fill_solid( &(leds[0]),             NUM_SOL, CRGB(64, 0, 0));
-  fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_SOL]),    NUM_SOL, CRGB(64, 0, 0));
-  FastLED.show();
   }
 }
 
@@ -119,14 +95,15 @@ void Wifisetup(){
 void Clearall(){
 
     if (run_light == 0) {
-  fill_solid( &(leds[0]), NUM_LEDS, CRGB(0, 0, 0));
-  FastLED.show();
+
+     fill_solid( &(leds[0]), NUM_LEDS, CRGB(0, 0, 0));
+
+     FastLED.show();
   
   }
 }
 
-void Wifi(){
- 
+void Wifi(){ 
   
   WiFiClient client = server.available();   // listen for incoming clients
 
@@ -167,51 +144,26 @@ void Wifi(){
               // Check to see if the client request was "GET /H" or "GET /L":
           if (currentLine.endsWith("GET /B"))  { 
             
-            run_light = 1;
-            Serial.println("");
-            Serial.println("I am a happy elf ");
-            Serial.println("");
-            Serial.println(run_light);            
-            // SolidLights(); 
-            // delay(10);
-            // RunningLights();     
+            run_light = 1;        
           
         }
         
-        //if (currentLine.endsWith("GET /S")) {
-          // SolidLights(); 
-
-         //}  
-                     
-        else if (currentLine.endsWith("GET /O")) { 
+                           
+        if (currentLine.endsWith("GET /O")) { 
           
             run_light = 0;
-            Serial.println("");
-            Serial.println("I am a happy elf ");
-            Serial.println("");
-            Serial.println(run_light); 
            
-             Clearall(); 
-      }
-      
-      
-      
-            // if (run_light = 1) {
-      //   RunningLights();
-    
-      //  }
-    //   else if (run_light = 0){         
-    //     Clearall();
-    //    }
-    // }
-    // close the connection:
-    //client.stop();
-    //Serial.println("Client Disconnected.");
-
+    }
+   }
   }
+ }
 }
-}
-}
+
+
+
+
+
+
 
 
 
