@@ -37,13 +37,16 @@ void loop() {
 
 void Beacon(){
   
-      if (run_light == 1) {    
+      if (run_light == 1) {   
+
+        fill_solid( &(leds[0]),                              NUM_SOL, CRGB(255, 0, 0));
+        fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_SOL]),    NUM_SOL, CRGB(255, 0, 0)); 
 
               
       for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
        for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
        int led_num = dot1 + NUM_RUN * iteration;
-       leds[NUM_SOL + led_num] = CRGB::White;
+       leds[NUM_SOL + led_num] = CRGB(255, 255, 255);
 
     }
       
@@ -53,14 +56,14 @@ void Beacon(){
     
      for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      leds[NUM_RUN + led_num ] = CRGB::Red;
+      leds[NUM_RUN + led_num ] = CRGB(35, 35, 35  );
     }
     
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      if(dot1 > 0) leds[NUM_RUN + led_num - 1] = CRGB::Blue;
-      else if(dot1 + iteration == 0) leds[NUM_RUN + NUM_RUN * NUM_RINGS - 1] = CRGB::Blue;
-      else leds[NUM_RUN + led_num - 1] = CRGB::Blue;
+      if(dot1 > 0) leds[NUM_RUN + led_num - 1] = CRGB(10, 10, 10 );
+      else if(dot1 + iteration == 0) leds[NUM_RUN + NUM_RUN * NUM_RINGS - 1] = CRGB(10, 10, 10);
+      else leds[NUM_RUN + led_num - 1] = CRGB(10, 10, 10);
     }
     
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
@@ -72,8 +75,8 @@ void Beacon(){
     }
   }
 
-      fill_solid( &(leds[0]),                              NUM_SOL-1, CRGB(0, 255, 0));
-      fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_SOL]),    NUM_SOL, CRGB(0, 255, 0));
+      // fill_solid( &(leds[0]),                              NUM_SOL, CRGB(255, 0, 0));
+      // fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_SOL]),    NUM_SOL, CRGB(255, 0, 0));
   }
   }
 
