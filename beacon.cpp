@@ -66,7 +66,7 @@ void Beacon(){
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
       if(dot1 > 1 || iteration > 0) leds[NUM_RUN + led_num - 2] = CRGB::Black;
-      else if(dot1 == 1 && iteration == 0) leds[NUM_RUN + led_num - 1] = CRGB::Black;
+      else if(dot1 == 1 && iteration == 0) leds[NUM_RUN + NUM_RUN * NUM_RINGS - 1] = CRGB::Black;
       else if(dot1 + iteration < 2) leds[NUM_RUN + NUM_RUN * NUM_RINGS - 2] = CRGB::Black;
       else leds[NUM_RUN + led_num - 2] = CRGB::Black;
     }
