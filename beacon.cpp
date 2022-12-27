@@ -37,15 +37,14 @@ void loop() {
 
 void Beacon(){
   
-      if (run_light == 1) {             
-      
+      if (run_light == 1) {    
+
+              
       for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
        for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
        int led_num = dot1 + NUM_RUN * iteration;
        leds[NUM_SOL + led_num] = CRGB::White;
 
-      fill_solid( &(leds[0]),             NUM_SOL, CRGB(64, 0, 0));
-      fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_SOL]),    NUM_SOL, CRGB(64, 0, 0));
     }
       
     FastLED.show();
@@ -54,25 +53,29 @@ void Beacon(){
     
      for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      leds[NUM_RUN + led_num ] = CRGB::GhostWhite;
+      leds[NUM_RUN + led_num ] = CRGB::Red;
     }
     
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      if(dot1 > 0) leds[NUM_RUN + led_num - 1] = CRGB::Gray;
-      else if(dot1 + iteration == 0) leds[NUM_RUN + NUM_RUN * NUM_RINGS - 1] = CRGB::Gray;
-      else leds[NUM_RUN + led_num - 1] = CRGB::Gray;
+      if(dot1 > 0) leds[NUM_RUN + led_num - 1] = CRGB::Blue;
+      else if(dot1 + iteration == 0) leds[NUM_RUN + NUM_RUN * NUM_RINGS - 1] = CRGB::Blue;
+      else leds[NUM_RUN + led_num - 1] = CRGB::Blue;
     }
     
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      if(dot1 > 1) leds[NUM_RUN + led_num - 2] = CRGB::Black;
+      if(dot1 > 1 || iteration > 0) leds[NUM_RUN + led_num - 2] = CRGB::Black;
+      else if(dot1 == 1 && iteration == 0) leds[NUM_RUN + led_num - 1] = CRGB::Black;
       else if(dot1 + iteration < 2) leds[NUM_RUN + NUM_RUN * NUM_RINGS - 2] = CRGB::Black;
       else leds[NUM_RUN + led_num - 2] = CRGB::Black;
     }
   }
+
+      fill_solid( &(leds[0]),                              NUM_SOL-1, CRGB(0, 255, 0));
+      fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_SOL]),    NUM_SOL, CRGB(0, 255, 0));
   }
-}
+  }
 
 void Wifisetup(){ 
 
