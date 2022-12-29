@@ -3,14 +3,16 @@
 
 #define LED_TYPE WS2812B
 #define COLOR_ORDER GRB
-#define NUM_LEDS 100
+#define NUM_LEDS 108
 #define DATA_PIN 21
 
+int fadeamt = 48;
 int speed = 200;
 int NUM_RUN = 12;
 int NUM_SOL = NUM_RUN;
-int NUM_RINGS = 6;
+int NUM_RINGS = 7;
 int run_light = 0;
+int party_light = 0;
  
 const char* ssid     = "ELF";
 const char* password = "Happyelf";
@@ -29,21 +31,45 @@ void setup() {
 
 void loop() {
 
+  Party();
   Beacon();
   Clearall();
   Wifi();
  
 }
 
+  void Party() {
+
+              if (party_light == 1) {
+    
+                 int spot1 = random(0, 54); 
+                 leds[spot1, spot1*2] = CHSV(random8() , 255, 255);   
+                           
+                 int spot2 = random(1, 54); 
+                 leds[spot2 - 1, spot2*2 - 1] = CHSV(random8(), 255, 255);  
+           
+                 for (int fade = 0; fade < NUM_LEDS; fade++)
+                 leds[fade] = leds[fade].fadeToBlackBy(fadeamt);                      
+              
+                 FastLED.show();
+                 delay(50);
+              }
+    }
+   
+  
+
 void Beacon(){
   
-      if (run_light == 1) {    
+      if (run_light == 1) {   
+
+        fill_solid( &(leds[0]),                              NUM_SOL, CRGB(255, 0, 0));
+        fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_SOL]),    NUM_SOL, CRGB(255, 0, 0)); 
 
               
       for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
        for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
        int led_num = dot1 + NUM_RUN * iteration;
-       leds[NUM_SOL + led_num] = CRGB::White;
+       leds[NUM_SOL + led_num] = CRGB(255, 255, 255);
 
     }
       
@@ -53,14 +79,14 @@ void Beacon(){
     
      for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      leds[NUM_RUN + led_num ] = CRGB::Red;
+      leds[NUM_RUN + led_num ] = CRGB(35, 35, 35  );
     }
     
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
       int led_num = dot1 + NUM_RUN * iteration;
-      if(dot1 > 0) leds[NUM_RUN + led_num - 1] = CRGB::Blue;
-      else if(dot1 + iteration == 0) leds[NUM_RUN + NUM_RUN * NUM_RINGS - 1] = CRGB::Blue;
-      else leds[NUM_RUN + led_num - 1] = CRGB::Blue;
+      if(dot1 > 0) leds[NUM_RUN + led_num - 1] = CRGB(10, 10, 10 );
+      else if(dot1 + iteration == 0) leds[NUM_RUN + NUM_RUN * NUM_RINGS - 1] = CRGB(10, 10, 10);
+      else leds[NUM_RUN + led_num - 1] = CRGB(10, 10, 10);
     }
     
     for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
@@ -71,11 +97,9 @@ void Beacon(){
       else leds[NUM_RUN + led_num - 2] = CRGB::Black;
     }
   }
-
-      fill_solid( &(leds[0]),                              NUM_SOL-1, CRGB(0, 255, 0));
-      fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_SOL]),    NUM_SOL, CRGB(0, 255, 0));
   }
-  }
+  
+}
 
 void Wifisetup(){ 
 
@@ -104,9 +128,9 @@ void Wifisetup(){
 
 void Clearall(){
 
-    if (run_light == 0) {
+    if (run_light == 0 && party_light == 0) {
 
-     fill_solid( &(leds[0]), NUM_LEDS, CRGB(0, 0, 0));
+     fill_solid(leds, NUM_LEDS, CRGB::Black);
 
      FastLED.show();
   
@@ -137,7 +161,7 @@ void Wifi(){
 
             // the content of the HTTP response follows the header:
             client.print("Click <a href=\"/B\">here</a> to Turn Beacon on.<br>");
-            //client.print("Click <a href=\"/S\">here</a> to Turn SolidLights on.<br>");
+            client.print("Click <a href=\"/P\">here</a> to Turn Party mode on.<br>");
             client.print("Click <a href=\"/O\">here</a> to Turn the Beacon OFF.<br>");
 
             // The HTTP response ends with another blank line:
@@ -157,14 +181,25 @@ void Wifi(){
             run_light = 1;        
           
         }
+
+          if (currentLine.endsWith("GET /P"))  { 
+            
+             party_light = 1;        
+          
+        }
         
                            
         if (currentLine.endsWith("GET /O")) { 
           
             run_light = 0;
+            party_light = 0;
+
+            
            
     }
    }
   }
  }
 }
+
+  
