@@ -43,16 +43,23 @@ void loop() {
 
               if (party_light == 1) {
                 
+                unsigned long StartTime = millis();
+                
                 for (int spot = 0; spot < party_spots; spot++) {
                   
-                  spot_n = random(spot, 54)
+                  int spot_n = random(spot, 54);
                   leds[spot_n - spot, spot_n*2 - spot] = CHSV(random8() , 255 , 255);
            
                 for (int fade = 0; fade < NUM_LEDS; fade++)
                   leds[fade] = leds[fade].fadeToBlackBy(fadeamt);                      
-              
-                  FastLED.show();
-                  delay(50);
+                
+                unsigned long CurrentTime = millis();
+                unsigned long ElapsedTime = CurrentTime - StartTime;
+                Serial.print(ElapsedTime);
+               
+                
+                FastLED.show();
+                delay(50);
                 }
               }
     }
