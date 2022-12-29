@@ -13,7 +13,7 @@ int NUM_SOL = NUM_RUN;
 int NUM_RINGS = 7;
 int run_light = 0;
 int party_light = 0;
-int party_spots = 30;
+int party_spots = 3;
  
 const char* ssid     = "ELF";
 const char* password = "Happyelf";
@@ -43,14 +43,16 @@ void loop() {
 
               if (party_light == 1) {
                 
+                
                 for (int spot = 0; spot < party_spots; spot++) {
                   
                   int spot_n = random(spot, 54);
-                  leds[spot_n - spot, spot_n*2 - spot] = CHSV(random8() , 255 , 255);
+                  leds[spot_n - spot % 2, spot_n * 2 - spot % 2] = CHSV(random8() , 255 , 255);
                 } 
                 
                 for (int fade = 0; fade < NUM_LEDS; fade++)
                   leds[fade] = leds[fade].fadeToBlackBy(fadeamt);                      
+                                
                 
                 FastLED.show();
                 delay(50);
