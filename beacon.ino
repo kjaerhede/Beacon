@@ -13,7 +13,7 @@ int NUM_SOL = NUM_RUN;
 int NUM_RINGS = 7;
 int run_light = 0;
 int party_light = 0;
-int party_spots = 3;
+int party_spots = 30;
  
 const char* ssid     = "ELF";
 const char* password = "Happyelf";
@@ -43,8 +43,6 @@ void loop() {
 
               if (party_light == 1) {
                 
-                unsigned long StartTime = millis();
-                
                 for (int spot = 0; spot < party_spots; spot++) {
                   
                   int spot_n = random(spot, 54);
@@ -53,11 +51,6 @@ void loop() {
                 
                 for (int fade = 0; fade < NUM_LEDS; fade++)
                   leds[fade] = leds[fade].fadeToBlackBy(fadeamt);                      
-                
-                unsigned long CurrentTime = millis();
-                unsigned long ElapsedTime = CurrentTime - StartTime;
-                Serial.print(ElapsedTime);
-                                
                 
                 FastLED.show();
                 delay(50);
