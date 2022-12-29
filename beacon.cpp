@@ -56,11 +56,11 @@ void loop() {
                 unsigned long CurrentTime = millis();
                 unsigned long ElapsedTime = CurrentTime - StartTime;
                 Serial.print(ElapsedTime);
-               
+                }                
                 
                 FastLED.show();
                 delay(50);
-                }
+                
               }
     }
    
