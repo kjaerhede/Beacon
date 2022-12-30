@@ -46,7 +46,7 @@ void loop() {
                 
                 for (int spot = 0; spot < party_spots; spot++) {
                   
-                  int spot_n = random(spot % 2, 54);
+                  int spot_n = random(spot % 2, NUM_LEDS + 1); // 1 is added to num_leds as modulo function below prevented final led from lighting up
                   leds[spot_n - spot % 2, spot_n * 2 - spot % 2] = CHSV(random8() , 255 , 255);
                 } 
                 
