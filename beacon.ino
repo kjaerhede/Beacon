@@ -33,7 +33,7 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(12, 7, DATA_PIN,
   NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE,
   NEO_GRB            + NEO_KHZ800);
 
-int x    = matrix.width();
+ int x    = matrix.width();
 
 
 void setup() {
@@ -46,14 +46,41 @@ void setup() {
 }
 
 void loop  () {
-  
-  Party    ();
-  Beacon   ();
-  Matrix   ();
-  Lantern  ();
-  Name     ();
-  Clearall ();
+
   Wifi     ();
+
+   if(party_light == 1 ){
+  Party();
+  }
+
+   if(run_light == 1 ) {
+   Beacon();
+ }
+
+ if (matrix_light == 1 ){
+   Matrix();
+ }
+
+ if (lantern_light == 1 ) {
+   Lantern();
+ }
+
+  if(name_light == 1) {
+    Name();
+
+  }
+
+  if(off_light == 1) {
+   Clearall();
+  }
+  
+  // Party    ();
+  // Beacon   ();
+  // Matrix   ();
+  // Lantern  ();
+  // Name     ();
+  // Clearall ();
+  // Wifi     ();
   
  
 }
@@ -62,16 +89,14 @@ void loop  () {
 void Matrix() {
 
               
-              if (matrix_light == 1) {
-
-                //off_light = 0;
-                
+              // if (matrix_light == 1) {
+                           
                 FastLED.setBrightness(255);
                 
                 for (int spot = 0; spot < party_spots; spot++) {
                   
                   int spot_n = random(spot % 2, 72);
-                  leds[spot_n - spot % 2, spot_n * 2 - spot % 2] = CRGB(0, 255, 0);
+                  leds[spot_n - spot % 2, spot_n * 2 - spot % 2] = CRGB::Green;
                   
                 } 
                 
@@ -83,16 +108,14 @@ void Matrix() {
                 FastLED.show();
                 delay(50);
                 
-              }
+              //}
     }
 
 void Party() {
 
               
-              if (party_light == 1) {
-                
-                //off_light = 0;
-
+              // if (party_light == 1) {                
+    
                 FastLED.setBrightness(255);
                 
                 
@@ -111,7 +134,7 @@ void Party() {
                 FastLED.show();
                 delay(50);
                 
-              }
+              // }
     }
    
   
@@ -119,7 +142,7 @@ void Party() {
 void Beacon(){
 
   
-        if (run_light == 1) { 
+        // if (run_light == 1) { 
 
         //off_light = 0;  
 
@@ -161,7 +184,7 @@ void Beacon(){
       else leds[NUM_RUN + led_num - 2] = CRGB::Black;
     }
   }
-  }
+  //}
   
 }
 
@@ -192,7 +215,7 @@ void Wifisetup(){
 
 void Lantern(){
 
-    if (lantern_light == 1 ) {
+    // if (lantern_light == 1 ) {
 
       //off_light = 0;
 
@@ -202,23 +225,24 @@ void Lantern(){
 
      FastLED.show();
   
-  }
+  //}
 }
 
 void Clearall(){
 
-    if (off_light == 1 ) {
+    // if (off_light == 1 ) {
 
-     fill_solid(leds, NUM_LEDS, CRGB::Black);
-     matrix.fillScreen(0);
-     matrix.Color(0, 0, 0);
+      FastLED.clear(true);
+           
+    //  matrix.fillScreen(0);
+    //  matrix.Color(0, 0, 0);
+   
+    //matrix.clear();
+    //matrix.show();
 
-     matrix.show();
-     FastLED.show();
-
-     off_light = 0;
+    off_light = 0;
   
-  }
+  //}
 }
 
 void Wifi(){ 
@@ -313,9 +337,11 @@ void Wifi(){
 
 void Name(){
 
-  if (name_light == 1) { 
+   //int x    = matrix.width();
 
-  
+    // if (name_light == 1) { 
+
+     
   matrix.begin();
   matrix.setTextWrap(false);
   matrix.setBrightness(20);
@@ -332,5 +358,7 @@ void Name(){
 
   matrix.show();
   delay(150);
-  }
+  
+  //}
+//}
 }
