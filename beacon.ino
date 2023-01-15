@@ -1,25 +1,38 @@
 #include <FastLED.h>
 #include <WiFi.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_NeoMatrix.h>
+#include <Adafruit_NeoPixel.h>
 
 #define LED_TYPE WS2812B
 #define COLOR_ORDER GRB
-#define NUM_LEDS 108
+#define NUM_LEDS 143
 #define DATA_PIN 21
 
-int fadeamt = 48;
-int speed = 200;
-int NUM_RUN = 12;
-int NUM_SOL = NUM_RUN;
-int NUM_RINGS = 7;
-int run_light = 0;
-int party_light = 0;
-int party_spots = 30;
+int fadeamt       = 48;
+int speed         = 200;
+int NUM_RUN       = 12;
+int NUM_SOL       = NUM_RUN;
+int NUM_RINGS     = 6;
+int beacon_light     = 0;
+int party_light   = 0;
+int party_spots   = 5;
+int matrix_light  = 0;
+int off_light     = 0;
+int lantern_light = 0;
+int blink_light   = 0;
  
 const char* ssid     = "ELF";
 const char* password = "Happyelf";
 
+int blinkoff = 2500;
+int blink    = 100;
+int blinkstate = 0;
+unsigned long remembertime = 0;
+
 WiFiServer server(80);
 CRGB leds[NUM_LEDS];
+
 
 void setup() {
   
@@ -27,48 +40,115 @@ void setup() {
   FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS);
   Clearall();
   Wifisetup();
+   
+}
+
+void loop  () {
+  
+  Party    ();
+  Beacon   ();
+  Matrix   ();
+  Lantern  ();
+  Blink    ();
+  Clearall ();
+  Wifi     ();
+  
  
 }
 
-void loop() {
+void Blink() {
 
-  Party();
-  Beacon();
-  Clearall();
-  Wifi();
- 
+  if (blink_light == 1 ) {
+
+  if (blinkstate == 1) 
+  
+  {
+    FastLED.setBrightness(100);
+    if( (millis() - remembertime) >= blinkoff) {
+      fill_solid( &(leds[96]), 47, CRGB(255, 0, 0));
+      FastLED.show();
+      blinkstate = 0;
+      remembertime = millis();
+
+    }
+  }
+  else 
+  {
+    if( (millis() - remembertime) >= blink) {
+      fill_solid( &(leds[96]), 47, CRGB(0, 0, 0));
+      FastLED.show();
+      blinkstate = 1;
+      remembertime = millis();
+
+    }
+  }
+}
 }
 
-  void Party() {
+void Matrix() {
 
-              if (party_light == 1) {
-                
+              
+               if (matrix_light == 1) {
+                           
+                FastLED.setBrightness(255);
                 
                 for (int spot = 0; spot < party_spots; spot++) {
                   
-                  int spot_n = random(spot % 2, NUM_LEDS + 1); // 1 is added to num_leds as modulo function below prevented final led from lighting up
-                  leds[spot_n - spot % 2, spot_n * 2 - spot % 2] = CHSV(random8() , 255 , 255);
+                  int spot_n = random(spot % 2, 72);
+                  leds[spot_n - spot % 2, spot_n * 2 - spot % 2] = CRGB(0, 255, 0);
+                  
                 } 
                 
-                for (int fade = 0; fade < NUM_LEDS; fade++)
-                  leds[fade] = leds[fade].fadeToBlackBy(fadeamt);                      
-                                
+                for (int fade = 0; fade < NUM_LEDS; fade++){
+                  leds[fade] = leds[fade].fadeToBlackBy(fadeamt); 
+
+                }
                 
                 FastLED.show();
                 delay(50);
                 
               }
     }
+
+void Party() {
+
+              
+               if (party_light == 1) {                
+    
+                FastLED.setBrightness(255);
+                
+                
+                for (int spot = 0; spot < party_spots; spot++) {
+                  
+                  int spot_n = random(spot % 2, 72);
+                  leds[spot_n - spot % 2, spot_n * 2 - spot % 2] = CHSV(random8() , 255 , 255);
+                  
+                    } 
+                
+                for (int fade = 0; fade < NUM_LEDS; fade++){
+                  leds[fade] = leds[fade].fadeToBlackBy(fadeamt);                      
+                                
+                }
+                
+                FastLED.show();
+                delay(50);
+                
+               }
+    }
    
   
 
 void Beacon(){
+
   
-      if (run_light == 1) {   
+         if (beacon_light == 1) { 
+
+                        
+        FastLED.setBrightness(100);
 
         fill_solid( &(leds[0]),                              NUM_SOL, CRGB(255, 0, 0));
-        fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_SOL]),    NUM_SOL, CRGB(255, 0, 0)); 
-
+        fill_solid( &(leds[0+NUM_SOL*NUM_RINGS+NUM_SOL]),    NUM_SOL, CRGB(255, 0, 0));
+                
               
       for (int dot1 = 0; dot1 < NUM_RUN; dot1++) {
        for (int iteration = 0; iteration < NUM_RINGS; iteration++) {
@@ -130,13 +210,26 @@ void Wifisetup(){
 
 }
 
-void Clearall(){
+void Lantern(){
 
-    if (run_light == 0 && party_light == 0) {
+     if (lantern_light == 1 ) {
 
-     fill_solid(leds, NUM_LEDS, CRGB::Black);
+     FastLED.setBrightness(10);
+
+     fill_solid(leds, NUM_LEDS, CRGB::White);
 
      FastLED.show();
+  
+  }
+}
+
+void Clearall(){
+
+     if (off_light == 1 ) {
+
+      FastLED.clear(true);
+       
+      off_light = 0;
   
   }
 }
@@ -164,9 +257,12 @@ void Wifi(){
             client.println();
 
             // the content of the HTTP response follows the header:
-            client.print("Click <a href=\"/B\">here</a> to Turn Beacon on.<br>");
-            client.print("Click <a href=\"/P\">here</a> to Turn Party mode on.<br>");
-            client.print("Click <a href=\"/O\">here</a> to Turn the Beacon OFF.<br>");
+            client.print("Click <a href=\"/Beacon\">here</a> to Turn Beacon on.<br>");
+            client.print("Click <a href=\"/Party\">here</a> to Turn Party mode on.<br>");
+            client.print("Click <a href=\"/Matrix\">here</a> to Turn Matrix mode on.<br>");
+            client.print("Click <a href=\"/Blink\">here</a> to Turn Blink mode on.<br>");
+            client.print("Click <a href=\"/Lantern\">here</a> to Turn Lantern on.<br>");
+            client.print("Click <a href=\"/Off\">here</a> to Turn the Beacon OFF.<br>");
 
             // The HTTP response ends with another blank line:
             client.println();
@@ -180,24 +276,45 @@ void Wifi(){
         }
 
               // Check to see if the client request was "GET /H" or "GET /L":
-          if (currentLine.endsWith("GET /B"))  { 
+          if (currentLine.endsWith("GET /Beacon"))  { 
             
-            run_light = 1;        
+            beacon_light = 1;        
           
         }
 
-          if (currentLine.endsWith("GET /P"))  { 
+          if (currentLine.endsWith("GET /Party"))  { 
             
              party_light = 1;        
           
         }
+
+        if (currentLine.endsWith("GET /Matrix"))  { 
+            
+             matrix_light = 1;        
+          
+        }
+
+        if (currentLine.endsWith("GET /Blink"))  { 
+            
+             blink_light = 1;        
+          
+        }
+        
+        if (currentLine.endsWith("GET /Lantern"))  { 
+            
+             lantern_light = 1;        
+          
+        }
         
                            
-        if (currentLine.endsWith("GET /O")) { 
-          
-            run_light = 0;
-            party_light = 0;
-
+        if (currentLine.endsWith("GET /Off")) { 
+            
+            off_light     = 1;
+            beacon_light     = 0;
+            party_light   = 0;
+            matrix_light  = 0;
+            lantern_light = 0;
+            blink_light   = 0; 
             
            
     }
@@ -205,5 +322,3 @@ void Wifi(){
   }
  }
 }
-
-  
